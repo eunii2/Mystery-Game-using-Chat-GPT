@@ -22,7 +22,7 @@ def getAlibi(name):
     }
     response = requests.post(url, headers=headers, data=json.dumps(data))
     alibi = response.json()['choices'][0]['text'].strip()
-    print(f"{name}의 알리바이: {alibi}")
+    return f"{name}의 알리바이: {alibi}"
 
 def getDetail(story):
     summary = input("사건 요약을 입력해주세요: ")
@@ -32,10 +32,12 @@ def getDetail(story):
     }
     response = requests.post(url, headers=headers, data=json.dumps(data))
     Detail = response.json()['choices'][0]['text'].strip()
-    print(Detail)
+    alibis = []
     for i in range(6):
         name = input(f"용의자 {i+1}의 이름을 입력해주세요: ")
-        getAlibi(name)
+        alibi = getAlibi(name)
+        alibis.append(alibi)
+    return Detail, alibis
 
 def getSetting():
     global culprit_info
@@ -49,6 +51,4 @@ def getSetting():
     response = requests.post(url, headers=headers, data=json.dumps(data))
     Setting = response.json()['choices'][0]['text'].strip()
     culprit_info = Setting
-    getDetail(Setting)
-
-getSetting()
+    return Setting
