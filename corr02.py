@@ -1,7 +1,8 @@
 import openai
 import random
 
-openai.api_key = "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"
+openai.api_key = "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"
+
 
 def getRespone(message):
     answer = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=message)
@@ -9,6 +10,7 @@ def getRespone(message):
     return respone
 
 culprit_info = None
+
 
 def getDetail(story):
     # Get the story summary from the user
@@ -19,6 +21,7 @@ def getDetail(story):
     message.append({"role": "user", "content": f"사건 요약: {summary}"})
     Detail = getRespone(message)
     print(Detail)
+
 
 def getSetting():
     global culprit_info
@@ -34,10 +37,12 @@ def getSetting():
     message.append({"role": "system", "content": f"주제와 용의자를 통해 범인을 특정해서 [범인: 범행도구: 사망원인: ]형태로 답변해줘"})
     message.append({"role": "user", "content": f"주제: {subject}, 용의자: {suspect}, 범행 도구: {weapon}"})
     Setting = getRespone(message)
-    #[범인: 범행도구: 사건줄거리: ] 형태로 값이 주어진다.
+    # [범인: 범행 도구: 사건 줄거리: ] 형태로 값이 주어진다.
     culprit_info = Setting
     getDetail(Setting)
 
 # ... the rest of your code ...
 
+
 getSetting()
+
