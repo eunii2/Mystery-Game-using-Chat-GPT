@@ -1,7 +1,7 @@
 import openai
 import random
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 def getRespone(message):
     answer = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=message)
